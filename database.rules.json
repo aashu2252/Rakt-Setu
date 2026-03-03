@@ -1,0 +1,16 @@
+{
+    "rules": {
+        "donor_locations": {
+            "$donorId": {
+                ".read": "auth != null",
+                ".write": "auth != null && auth.uid === $donorId"
+            }
+        },
+        "active_tracking": {
+            "$requestId": {
+                ".read": "auth != null",
+                ".write": "auth != null"
+            }
+        }
+    }
+}

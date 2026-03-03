@@ -1,0 +1,43 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── Users ──────────────────────────────────────────────────────────────
+    match /users/{userId} {
+      // Only authenticated users can read/write their own document
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // ── Blood Requests ──────────────────────────────────────────────────────
+    match /blood_requests/{requestId} {
+      // Any authenticated user can create a request
+      allow create: if request.auth != null;
+
+      // Seeker or assigned donor can read
+      allow read: if request.auth != null &&
+        (request.auth.uid == resource.data.seekerId ||
+         request.auth.uid == resource.data.donorId);
+
+      // Only the assigned donor or seeker can update
+      allow update: if request.auth != null &&
+        (request.auth.uid == resource.data.seekerId ||
+         request.auth.uid == resource.data.donorId);
+
+      allow delete: if false;
+    }
+
+    // ── Donation History ────────────────────────────────────────────────────
+    match /donation_history/{docId} {
+      allow read, write: if request.auth != null &&
+        request.auth.uid == resource.data.donorId;
+    }
+
+    // ── Notifications ───────────────────────────────────────────────────────
+    match /notifications/{docId} {
+      allow read: if request.auth != null &&
+        request.auth.uid == resource.data.userId;
+      allow write: if false; // Cloud Functions only
+    }
+  }
+}

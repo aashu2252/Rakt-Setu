@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "618883180772",
+    "project_id": "rakt-setu-1445f",
+    "storage_bucket": "rakt-setu-1445f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:618883180772:android:cb1e2987ed743d53eda4f1",
+        "android_client_info": {
+          "package_name": "com.raktsetu.raktsetu"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmxxawI3vcelBhUXIq-Y8TcAExo_GwL84"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
